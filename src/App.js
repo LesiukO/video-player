@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
+import Video from './components/Video';
+import Menu from './components/Menu';
 import './App.css';
+import { VIDEOS } from './videos';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+		this.chooseVideo = this.chooseVideo.bind(this);
+    this.state = { src: VIDEOS.fast };
+  }
+
+  chooseVideo(newVideo) {
+    this.setState({
+      src: VIDEOS[newVideo]
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Video Player</h1>
+        <Menu chooseVideo={this.chooseVideo} />
+        <Video src={this.state.src} />
+      </div>
+    );
+  }
 }
 
 export default App;
